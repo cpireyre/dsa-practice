@@ -1,0 +1,16 @@
+class Solution:
+    def combinationSum(self, nums: List[int], target: int) -> List[List[int]]:
+        nums.sort()
+        res = []
+        def f(xs,l,total):
+            if total == target:
+                res.append(xs[:])
+                return
+            for r in range(l,len(nums)):
+                if r>l and nums[r]==nums[r-1]: continue
+                if total+nums[r]>target: return
+                xs.append(nums[r])
+                f(xs,r+0,total+nums[r])
+                xs.pop()
+        f([],0,0)
+        return res
